@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人博客，活到老学到老">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    java 知识点 |
+    
+    John</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-java-knowledge" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java 知识点
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2018/05/04/java-knowledge/" class="article-date">
+  <time datetime="2018-05-04T02:37:54.000Z" itemprop="datePublished">2018-05-04</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h3 id="整理一些-java-中的常备知识点"><a href="#整理一些-java-中的常备知识点" class="headerlink" title="整理一些 java 中的常备知识点"></a>整理一些 java 中的常备知识点</h3><h4 id="（1）原始数据类型相关知识"><a href="#（1）原始数据类型相关知识" class="headerlink" title="（1）原始数据类型相关知识"></a>（1）原始数据类型相关知识</h4><p>原始数据类型(封装类)：<u>boolean(Integer)，byte(Byte)，short(Short)，char(Character)，int(Integer)，float(Float)，long(Long)，double(Double)</u></p>
+<ul>
+<li><h5 id="boolean-封装类-Boolean"><a href="#boolean-封装类-Boolean" class="headerlink" title="boolean(封装类 Boolean)"></a><em>boolean(封装类 Boolean)</em></h5></li>
+</ul>
+<ol>
+<li>boolean 数据类型非 true 即 false。这个数据类型表示 1 bit，但是它的大小并没有精确定义</li>
+<li>boolean 类型单独使用是4个字节，在数组中又是1个字节</li>
+<li>boolean 不用byte或short，而是使用 int 的原因是：对于32位的CPU来说，一次进行32位的数据交换更加高效</li>
+</ol>
+<p>综上，官方文档对boolean类型没有给出精确的定义，《Java虚拟机规范》给出了“单独时使用4个字节，boolean数组时1个字节”的定义，具体还要看虚拟机实现是否按照规范来，所以1个字节、4个字节都是有可能的。这其实是一种时空权衡。</p>
+<ul>
+<li><h5 id="byte-封装类-Byte"><a href="#byte-封装类-Byte" class="headerlink" title="byte(封装类 Byte)"></a><em>byte(封装类 Byte)</em></h5>byte 使用是 1 个字节, 1 byte = 8 bit</li>
+<li><h5 id="short-封装类-Short"><a href="#short-封装类-Short" class="headerlink" title="short(封装类 Short)"></a><em>short(封装类 Short)</em></h5>short 使用是 2 个字节</li>
+<li><h5 id="char-封装类-Character"><a href="#char-封装类-Character" class="headerlink" title="char(封装类 Character)"></a><em>char(封装类 Character)</em></h5>char 使用是 2 个字节</li>
+<li><h5 id="int-封装类-Integer"><a href="#int-封装类-Integer" class="headerlink" title="int(封装类 Integer)"></a><em>int(封装类 Integer)</em></h5>int 使用是 4 个字节</li>
+<li><h5 id="float-封装类-Float"><a href="#float-封装类-Float" class="headerlink" title="float(封装类 Float)"></a><em>float(封装类 Float)</em></h5>float 单精度浮点数，使用是 4 个字节</li>
+<li><h5 id="long-封装类-Long"><a href="#long-封装类-Long" class="headerlink" title="long(封装类 Long)"></a><em>long(封装类 Long)</em></h5>long 长整型，使用是 8 个字节</li>
+<li><h5 id="double-封装类-Double"><a href="#double-封装类-Double" class="headerlink" title="double(封装类 Double)"></a><em>double(封装类 Double)</em></h5>double 双精度浮点数，使用是 8 个字节</li>
+</ul>
+<h4 id="（2）”-”-与-“equals-”-的区别"><a href="#（2）”-”-与-“equals-”-的区别" class="headerlink" title="（2）”==” 与 “equals()” 的区别"></a>（2）”==” 与 “equals()” 的区别</h4><ol>
+<li>《Thinking in Java》中说：“关系操作符生成的是一个boolean结果，它们计算的是操作数的值之间的关系”。</li>
+<li>“==”判断的是两个对象的内存地址是否一样，适用于原始数据类型和枚举类型（它们的变量存储的是值本身，而引用类型变量存储的是引用）；</li>
+<li>equals是Object类的方法，Object对它的实现是比较内存地址，<strong>我们可以重写这个方法来自定义“相等”这个概念。</strong>比如类库中的String、Date等类就对这个方法进行了重写。</li>
+</ol>
+<p><strong>综上，对于枚举类型和原始数据类型的相等性比较，应该使用”==”；对于引用类型的相等性比较，应该使用equals方法。</strong></p>
+<h4 id="（3）Object中定义了哪些方法？"><a href="#（3）Object中定义了哪些方法？" class="headerlink" title="（3）Object中定义了哪些方法？"></a>（3）Object中定义了哪些方法？</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashCode(),clone(),wait(),notify(),notifyAll(),equals(),toString(),finalize(),getClass()</span><br></pre></td></tr></table></figure>
+<h4 id="（4）hashCode的作用？"><a href="#（4）hashCode的作用？" class="headerlink" title="（4）hashCode的作用？"></a>（4）hashCode的作用？</h4><p>在很多地方都会利用到hash表来提高查找效率。在Java的Object类中有一个方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>该方法返回一个int类型的数值，并且是本地方法，因此在Object类中并没有给出具体的实现。hashCode方法默认返回对象的内存地址</p>
+<p>hashCode方法的主要作用是为了配合基于散列的集合一起正常运行，这样的散列集合包括HashSet、HashMap以及HashTable。</p>
+<ul>
+<li>场景：当向集合中插入对象时，如何判别在集合中是否已经存在该对象了？</li>
+</ul>
+<p>如果用equals方法，需要逐个比较，但是集合数据多的时候就比较耗性能了。</p>
+<p>此时hashCode方法的作用就体现出来了，当集合要添加新的对象时，先调用这个对象的hashCode方法，得到对应的hashcode值，实际上在HashMap的具体实现中会用一个table保存已经存进去的对象的hashcode值，如果table中没有该hashcode值，它就可以直接存进去，不用再进行任何比较了；如果存在该hashcode值， 就调用它的equals方法与新元素进行比较，相同的话就不存了，不相同就散列其它的地址，所以这里存在一个冲突解决的问题，这样一来实际调用equals方法的次数就大大降低了，说通俗一点：Java中的hashCode方法就是根据一定的规则将与对象相关的信息（比如对象的存储地址，对象的字段等）映射成一个数值，这个数值称作为散列值。</p>
+<p>java.util.HashMap的中put方法的具体实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> putForNullKey(value);</span><br><span class="line">    <span class="keyword">int</span> hash = hash(key.hashCode());</span><br><span class="line">    <span class="keyword">int</span> i = indexFor(hash, table.length);</span><br><span class="line">    <span class="keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="keyword">null</span>; e = e.next) &#123;</span><br><span class="line">        Object k;</span><br><span class="line">        <span class="keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            e.value = value;</span><br><span class="line">            e.recordAccess(<span class="keyword">this</span>);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    addEntry(hash, key, value, i);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>put方法是用来向HashMap中添加新的元素，从put方法的具体实现可知，会先调用hashCode方法得到该元素的hashCode值，然后查看table中是否存在该hashCode值，如果存在则调用equals方法重新确定是否存在该元素，如果存在，则更新value值，否则将新的元素添加到HashMap中。从这里可以看出，hashCode方法的存在是为了减少equals方法的调用次数，从而提高程序效率。</p>
+<ul>
+<li>equals方法和hashCode方法</li>
+</ul>
+<ol>
+<li>在程序执行期间，<font color="#dd0000">只要equals方法的比较操作用到的信息没有被修改，那么对这同一个对象调用多次，hashCode方法必须始终如一地返回同一个整数。</font></li>
+<li>如果两个对象根据equals方法比较是相等的，那么调用两个对象的hashCode方法必须返回相同的整数结果。</li>
+<li>如果两个对象根据equals方法比较是不等的，则hashCode方法不一定得返回不同的整数。</li>
+</ol>
+<p>在《Java编程思想》一书中的有同第一条类似的一段话：<br>　　“设计hashCode()时最重要的因素就是：无论何时，对同一个对象调用hashCode()都应该产生同样的值。如果在讲一个对象用put()添加进HashMap时产生一个hashCdoe值，而用get()取出时却产生了另一个hashCode值，那么就无法获取该对象了。所以如果你的hashCode方法依赖于对象中易变的数据，用户就要当心了，因为此数据发生变化时，hashCode()方法就会生成一个不同的散列码”。</p>
+<h4 id="（5）ArrayList-LinkedList-Vector的区别是什么？"><a href="#（5）ArrayList-LinkedList-Vector的区别是什么？" class="headerlink" title="（5）ArrayList, LinkedList, Vector的区别是什么？"></a>（5）ArrayList, LinkedList, Vector的区别是什么？</h4><ul>
+<li>ArrayList: 内部采用数组存储元素，支持高效随机访问，支持动态调整大小</li>
+<li>LinkedList: 内部采用链表来存储元素，支持快速插入/删除元素，但不支持高效地随机访问</li>
+<li>Vector: 可以看作线程安全版的ArrayList</li>
+</ul>
+<h4 id="（6）String-StringBuilder-StringBuffer的区别是什么？"><a href="#（6）String-StringBuilder-StringBuffer的区别是什么？" class="headerlink" title="（6）String, StringBuilder, StringBuffer的区别是什么？"></a>（6）String, StringBuilder, StringBuffer的区别是什么？</h4><ul>
+<li>String: 不可变的字符序列，若要向其中添加新字符需要创建一个新的String对象</li>
+<li>StringBuilder: 可变字符序列，支持向其中添加新字符（无需创建新对象）</li>
+<li>StringBuffer: 可以看作线程安全版的StringBuilder</li>
+</ul>
+<h4 id="（7）Map-Set-List-Queue-Stack的特点及用法。"><a href="#（7）Map-Set-List-Queue-Stack的特点及用法。" class="headerlink" title="（7）Map, Set, List, Queue, Stack的特点及用法。"></a>（7）Map, Set, List, Queue, Stack的特点及用法。</h4><ul>
+<li>Map&lt;K, V&gt;: Java中存储键值对的数据类型都实现了这个接口，表示“映射表”。支持的两个核心操作是get(Object key)以及put(K key, V value)，分别用来获取键对应的值以及向映射表中插入键值对。</li>
+<li>Set<e>: 实现了这个接口的集合类型中不允许存在重复的元素，代表数学意义上的“集合”。它所支持的核心操作有add(E e),<em> remove(Object o)</em>, contains(Object o)，分别用于添加元素，删除元素以及判断给定元素是否存在于集中。</e></li>
+<li>List<e>: Java中集合框架中的列表类型都实现了这个接口，表示一种有序序列。支持get(int index), add(E e)等操作。</e></li>
+<li>Queue<e>: Java集合框架中的队列接口，代表了“先进先出”队列。支持add(E element), remove()等操作。</e></li>
+<li>Stack<e>: Java集合框架中表示堆栈的数据类型，堆栈是一种“后进先出”的数据结构。支持push(E item), pop()等操作。</e></li>
+</ul>
+<h4 id="（8）HashMap和HashTable的区别"><a href="#（8）HashMap和HashTable的区别" class="headerlink" title="（8）HashMap和HashTable的区别"></a>（8）HashMap和HashTable的区别</h4><ul>
+<li>HashTable是线程安全的，而HashMap不是</li>
+<li>HashMap中允许存在null键和null值，而HashTable中不允许</li>
+</ul>
+<h4 id="（9）HashMap的实现原理"><a href="#（9）HashMap的实现原理" class="headerlink" title="（9）HashMap的实现原理"></a>（9）HashMap的实现原理</h4><p>Java中数据存储方式最底层的两种结构，一种是数组，另一种就是链表</p>
+<ul>
+<li>数组的特点：连续空间，寻址迅速，但是在删除或者添加元素的时候需要有较大幅度的移动，所以查询速度快，增删较慢。</li>
+<li>链表正好相反，由于空间不连续，寻址困难，增删元素只需修改指针，所以查询慢、增删快。</li>
+</ul>
+<p>为了查询和增删都快的目的，出现了哈希表。</p>
+<ul>
+<li>哈希表具有较快（常量级）的查询速度，及相对较快的增删速度，所以很适合在海量数据的环境中使用。一般实现哈希表的方法采用“拉链法”，我们可以理解为“链表的数组”。HashMap的底层实现是“基于拉链法的散列表”。</li>
+<li><a href="https://blog.csdn.net/tgxblue/article/details/8479147/" target="_blank" rel="noopener">详细分析请参考深入解析HashMap、HashTable</a></li>
+</ul>
+<h4 id="（10）ConcurrentHashMap的实现原理"><a href="#（10）ConcurrentHashMap的实现原理" class="headerlink" title="（10）ConcurrentHashMap的实现原理"></a>（10）ConcurrentHashMap的实现原理</h4><ul>
+<li>ConcurrentHashMap是支持并发读写的HashMap，它的特点是读取数据时无需加锁，写数据时可以保证加锁粒度尽可能的小。由于其内部采用“分段存储”，只需对要进行写操作的数据所在的“段”进行加锁。</li>
+<li><a href="http://www.cnblogs.com/dolphin0520/p/3932905.html" target="_blank" rel="noopener">Java并发编程：并发容器之ConcurrentHashMap</a></li>
+</ul>
+<h4 id="（11）TreeMap-LinkedHashMap-HashMap的区别是什么？"><a href="#（11）TreeMap-LinkedHashMap-HashMap的区别是什么？" class="headerlink" title="（11）TreeMap, LinkedHashMap, HashMap的区别是什么？"></a>（11）TreeMap, LinkedHashMap, HashMap的区别是什么？</h4><ul>
+<li>HashMap的底层实现是散列表，因此它内部存储的元素是无序的；</li>
+<li>TreeMap的底层实现是红黑树，所以它内部的元素的有序的。排序的依据是自然序或者是创建TreeMap时所提供的比较器（Comparator）对象。</li>
+<li>LinkedHashMap可以看作能够记住插入元素的顺序的HashMap。</li>
+</ul>
+<h4 id="（12）Collection与Collections的区别是什么？"><a href="#（12）Collection与Collections的区别是什么？" class="headerlink" title="（12）Collection与Collections的区别是什么？"></a>（12）Collection与Collections的区别是什么？</h4><ul>
+<li>Collection<e>是Java集合框架中的基本接口；</e></li>
+<li>Collections是Java集合框架提供的一个工具类，其中包含了大量用于操作或返回集合的静态方法。</li>
+<li><a href="https://www.cnblogs.com/Eason-S/p/5786066.html" target="_blank" rel="noopener">Collections类常用方法总结</a></li>
+</ul>
+<h4 id="（13）Java中的异常层次结构"><a href="#（13）Java中的异常层次结构" class="headerlink" title="（13）Java中的异常层次结构"></a>（13）Java中的异常层次结构</h4><ul>
+<li>Throwable类是异常层级中的基类。</li>
+<li>Error类表示内部错误，这类错误使我们无法控制的；</li>
+<li>Exception表示异常，RuntimeException及其子类属于未检查异常，这类异常包括ArrayIndexOutOfBoundsException、NullPointerException等，我们应该通过条件判断等方式语句避免未检查异常的发生。</li>
+<li>IOException及其子类属于已检查异常，编译器会检查我们是否为所有可能抛出的已检查异常提供了异常处理器，若没有则会报错。对于未检查异常，我们无需捕获（当然Java也允许我们捕获，但我们应该做的事避免未检查异常的发生）。</li>
+</ul>
+<h4 id="（14）Java面向对象的三个特征与含义"><a href="#（14）Java面向对象的三个特征与含义" class="headerlink" title="（14）Java面向对象的三个特征与含义"></a>（14）Java面向对象的三个特征与含义</h4><ul>
+<li>三大特征：封装、继承、多态。<a href="http://javabc.baike.com/article-692235.html" target="_blank" rel="noopener">详细介绍请戳Java面向对象三大特性</a></li>
+</ul>
+<h4 id="（15）Override-Overload的含义与区别"><a href="#（15）Override-Overload的含义与区别" class="headerlink" title="（15）Override, Overload的含义与区别"></a>（15）Override, Overload的含义与区别</h4><ul>
+<li>Override表示“重写”，是子类对父类中同一方法的重新定义</li>
+<li>Overload表示“重载”，也就是定义一个与已定义方法名称相同但签名不同的新方法</li>
+</ul>
+<h4 id="（16）接口与抽象类的区别"><a href="#（16）接口与抽象类的区别" class="headerlink" title="（16）接口与抽象类的区别"></a>（16）接口与抽象类的区别</h4><ul>
+<li>接口是一种约定，实现接口的类要遵循这个约定；</li>
+<li>抽象类本质上是一个类，使用抽象类的代价要比接口大。<br>接口与抽象类的对比如下：</li>
+</ul>
+<ol>
+<li>抽象类中可以包含属性，方法（包含抽象方法与有着具体实现的方法），常量；接口只能包含常量和方法声明。</li>
+<li>抽象类中的方法和成员变量可以定义可见性（比如public、private等）；而接口中的方法只能为public（缺省为public）。</li>
+<li>一个子类只能有一个父类（具体类或抽象类）；而一个接口可以继承一个或多个接口，一个类也可以实现多个接口。</li>
+<li>子类中实现父类中的抽象方法时，可见性可以大于等于父类中的；而接口实现类中的接口 方法的可见性只能与接口中相同（public）。</li>
+</ol>
+<h4 id="（17）Java中多态的实现原理"><a href="#（17）Java中多态的实现原理" class="headerlink" title="（17）Java中多态的实现原理"></a>（17）Java中多态的实现原理</h4><ul>
+<li>所谓多态，指的就是父类引用指向子类对象，调用方法时会调用子类的实现而不是父类的实现。多态的实现的关键在于“动态绑定”。</li>
+<li><a href="https://blog.csdn.net/sureyonder/article/details/5569617" target="_blank" rel="noopener">Java动态绑定的内部实现机制</a></li>
+</ul>
+<h4 id="（18）简述Java中创建新线程的两种方法"><a href="#（18）简述Java中创建新线程的两种方法" class="headerlink" title="（18）简述Java中创建新线程的两种方法"></a>（18）简述Java中创建新线程的两种方法</h4><ol>
+<li><h5 id="继承Thread类。"><a href="#继承Thread类。" class="headerlink" title="继承Thread类。"></a>继承Thread类。</h5><h6 id="1）定义Thread类的子类，并重写该类的run-方法，该方法的方法体就是线程需要完成的任务，run-方法也称为线程执行体。"><a href="#1）定义Thread类的子类，并重写该类的run-方法，该方法的方法体就是线程需要完成的任务，run-方法也称为线程执行体。" class="headerlink" title="1）定义Thread类的子类，并重写该类的run()方法，该方法的方法体就是线程需要完成的任务，run()方法也称为线程执行体。"></a>1）定义Thread类的子类，并重写该类的run()方法，该方法的方法体就是线程需要完成的任务，run()方法也称为线程执行体。</h6><h6 id="2）创建Thread子类的实例，也就是创建了线程对象"><a href="#2）创建Thread子类的实例，也就是创建了线程对象" class="headerlink" title="2）创建Thread子类的实例，也就是创建了线程对象"></a>2）创建Thread子类的实例，也就是创建了线程对象</h6><h6 id="3）启动线程，即调用线程的start-方法"><a href="#3）启动线程，即调用线程的start-方法" class="headerlink" title="3）启动线程，即调用线程的start()方法"></a>3）启动线程，即调用线程的start()方法</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;<span class="comment">//继承Thread类</span></span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="comment">//重写run方法</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">　　　　<span class="keyword">new</span> MyThread().start();<span class="comment">//创建并启动线程</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="实现Runnable接口。"><a href="#实现Runnable接口。" class="headerlink" title="实现Runnable接口。"></a>实现Runnable接口。</h5><h6 id="1）定义Runnable接口的实现类，一样要重写run-方法，这个run（）方法和Thread中的run-方法一样是线程的执行体。"><a href="#1）定义Runnable接口的实现类，一样要重写run-方法，这个run（）方法和Thread中的run-方法一样是线程的执行体。" class="headerlink" title="1）定义Runnable接口的实现类，一样要重写run()方法，这个run（）方法和Thread中的run()方法一样是线程的执行体。"></a>1）定义Runnable接口的实现类，一样要重写run()方法，这个run（）方法和Thread中的run()方法一样是线程的执行体。</h6><h6 id="2）创建Runnable实现类的实例，并用这个实例作为Thread的target来创建Thread对象，这个Thread对象才是真正的线程对象。"><a href="#2）创建Runnable实现类的实例，并用这个实例作为Thread的target来创建Thread对象，这个Thread对象才是真正的线程对象。" class="headerlink" title="2）创建Runnable实现类的实例，并用这个实例作为Thread的target来创建Thread对象，这个Thread对象才是真正的线程对象。"></a>2）创建Runnable实现类的实例，并用这个实例作为Thread的target来创建Thread对象，这个Thread对象才是真正的线程对象。</h6><h6 id="3）第三部依然是通过调用线程对象的start-方法来启动线程。"><a href="#3）第三部依然是通过调用线程对象的start-方法来启动线程。" class="headerlink" title="3）第三部依然是通过调用线程对象的start()方法来启动线程。"></a>3）第三部依然是通过调用线程对象的start()方法来启动线程。</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread2</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;<span class="comment">//实现Runnable接口</span></span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">　　<span class="comment">//重写run方法</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">　　　　<span class="comment">//创建并启动线程</span></span><br><span class="line">　　　　MyThread2 myThread=<span class="keyword">new</span> MyThread2();</span><br><span class="line">　　　　Thread thread=<span class="keyword">new</span> Thread(myThread);</span><br><span class="line">　　　　thread().start();</span><br><span class="line">　　　　<span class="comment">//或者    new Thread(new MyThread2()).start();</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="使用Callable和Future创建线程。"><a href="#使用Callable和Future创建线程。" class="headerlink" title="使用Callable和Future创建线程。"></a>使用Callable和Future创建线程。</h5></li>
+</ol>
+<p>和Runnable接口不一样，Callable接口提供了一个call()方法作为线程执行体，call()方法比run()方法功能要强大。</p>
+<h6 id="gt-gt-call-方法可以有返回值"><a href="#gt-gt-call-方法可以有返回值" class="headerlink" title="&gt;&gt;call()方法可以有返回值"></a>&gt;&gt;call()方法可以有返回值</h6><h6 id="gt-gt-call-方法可以声明抛出异常"><a href="#gt-gt-call-方法可以声明抛出异常" class="headerlink" title="&gt;&gt;call()方法可以声明抛出异常"></a>&gt;&gt;call()方法可以声明抛出异常</h6><p>在Future接口里定义了几个公共方法来控制它关联的Callable任务。</p>
+<h6 id="gt-gt-boolean-cancel-boolean-mayInterruptIfRunning-：视图取消该Future里面关联的Callable任务"><a href="#gt-gt-boolean-cancel-boolean-mayInterruptIfRunning-：视图取消该Future里面关联的Callable任务" class="headerlink" title="&gt;&gt;boolean cancel(boolean mayInterruptIfRunning)：视图取消该Future里面关联的Callable任务"></a>&gt;&gt;boolean cancel(boolean mayInterruptIfRunning)：视图取消该Future里面关联的Callable任务</h6><h6 id="gt-gt-V-get-：返回Callable里call-方法的返回值，调用这个方法会导致程序阻塞，必须等到子线程结束后才会得到返回值"><a href="#gt-gt-V-get-：返回Callable里call-方法的返回值，调用这个方法会导致程序阻塞，必须等到子线程结束后才会得到返回值" class="headerlink" title="&gt;&gt;V get()：返回Callable里call()方法的返回值，调用这个方法会导致程序阻塞，必须等到子线程结束后才会得到返回值"></a>&gt;&gt;V get()：返回Callable里call()方法的返回值，调用这个方法会导致程序阻塞，必须等到子线程结束后才会得到返回值</h6><h6 id="gt-gt-V-get-long-timeout-TimeUnit-unit-：返回Callable里call-方法的返回值，最多阻塞timeout时间，经过指定时间没有返回抛出TimeoutException"><a href="#gt-gt-V-get-long-timeout-TimeUnit-unit-：返回Callable里call-方法的返回值，最多阻塞timeout时间，经过指定时间没有返回抛出TimeoutException" class="headerlink" title="&gt;&gt;V get(long timeout,TimeUnit unit)：返回Callable里call()方法的返回值，最多阻塞timeout时间，经过指定时间没有返回抛出TimeoutException"></a>&gt;&gt;V get(long timeout,TimeUnit unit)：返回Callable里call()方法的返回值，最多阻塞timeout时间，经过指定时间没有返回抛出TimeoutException</h6><h6 id="gt-gt-boolean-isDone-：若Callable任务完成，返回True"><a href="#gt-gt-boolean-isDone-：若Callable任务完成，返回True" class="headerlink" title="&gt;&gt;boolean isDone()：若Callable任务完成，返回True"></a>&gt;&gt;boolean isDone()：若Callable任务完成，返回True</h6><h6 id="gt-gt-boolean-isCancelled-：如果在Callable任务正常完成前被取消，返回True"><a href="#gt-gt-boolean-isCancelled-：如果在Callable任务正常完成前被取消，返回True" class="headerlink" title="&gt;&gt;boolean isCancelled()：如果在Callable任务正常完成前被取消，返回True"></a>&gt;&gt;boolean isCancelled()：如果在Callable任务正常完成前被取消，返回True</h6><p>具体操作步骤：<a href="https://blog.csdn.net/ghsau/article/details/7451464" target="_blank" rel="noopener">Callable和Future</a></p>
+<h5 id="一般推荐采用实现接口的方式来创建多线程"><a href="#一般推荐采用实现接口的方式来创建多线程" class="headerlink" title="一般推荐采用实现接口的方式来创建多线程"></a>一般推荐采用实现接口的方式来创建多线程</h5><h4 id="Java线程专栏文章汇总"><a href="#Java线程专栏文章汇总" class="headerlink" title="Java线程专栏文章汇总"></a><a href="https://blog.csdn.net/ghsau/article/details/17609747" target="_blank" rel="noopener">Java线程专栏文章汇总</a></h4><h4 id="（19）单例"><a href="#（19）单例" class="headerlink" title="（19）单例"></a>（19）单例</h4><h5 id="1，懒汉式"><a href="#1，懒汉式" class="headerlink" title="1，懒汉式"></a>1，懒汉式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Single</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Single instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Single</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Single <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Single.class) &#123;</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Single();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="1，饿汉式"><a href="#1，饿汉式" class="headerlink" title="1，饿汉式"></a>1，饿汉式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Single2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> class <span class="title">SingleHandle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Single2 instance = <span class="keyword">new</span> Single2();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Single2</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Single2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingleHandle.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="（20）排序算法"><a href="#（20）排序算法" class="headerlink" title="（20）排序算法"></a>（20）排序算法</h4><h5 id="1-冒泡"><a href="#1-冒泡" class="headerlink" title="1 冒泡"></a>1 冒泡</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;array.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;array.length-<span class="number">1</span>-i;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">                temp = array[j];</span><br><span class="line">                array[j] = array[j+<span class="number">1</span>];</span><br><span class="line">                array[j+<span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(Arrays.toString(array));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-选择"><a href="#2-选择" class="headerlink" title="2 选择"></a>2 选择</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(<span class="keyword">int</span> array[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> index=i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; array.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[index] &gt; array[j]) &#123;</span><br><span class="line">                index = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(index!=i)&#123; <span class="comment">//找到了比array[i]小的则与array[i]交换位置</span></span><br><span class="line">            t = array[i];</span><br><span class="line">            array[i] = array[index];</span><br><span class="line">            array[index] = t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(Arrays.toString(array));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-插入"><a href="#3-插入" class="headerlink" title="3 插入"></a>3 插入</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span> array[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">        t = array[i];</span><br><span class="line">        <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; t &lt; array[j]; j--) &#123;</span><br><span class="line">            array[j + <span class="number">1</span>] = array[j];</span><br><span class="line">        &#125;</span><br><span class="line">        array[j + <span class="number">1</span>] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(Arrays.toString(array));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qianh.github.io/2018/05/04/java-knowledge/" data-id="cjx5tvfwi00031x34211502uy"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2018/05/07/spring/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer posts</strong>
+        <div class="article-nav-title">
+          
+            spring
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/05/03/java-String/" class="article-nav-link">
+        <strong class="article-nav-caption">Olde posts</strong>
+        <div class="article-nav-title">java源代码赏析 —— String类</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 John</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="John"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

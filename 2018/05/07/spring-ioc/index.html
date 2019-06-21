@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人博客，活到老学到老">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    spring-ioc |
+    
+    John</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-spring-ioc" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-ioc
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2018/05/07/spring-ioc/" class="article-date">
+  <time datetime="2018-05-07T06:16:26.000Z" itemprop="datePublished">2018-05-07</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h3 id="参考：关于spring-ioc"><a href="#参考：关于spring-ioc" class="headerlink" title="参考：关于spring ioc"></a>参考：<a href="https://blog.csdn.net/javazejian/article/details/54561302" target="_blank" rel="noopener">关于spring ioc</a></h3><h4 id="（1）IOC-Inversion-of-Control"><a href="#（1）IOC-Inversion-of-Control" class="headerlink" title="（1）IOC(Inversion of Control)"></a>（1）IOC(Inversion of Control)</h4><blockquote>
+<p>IOC，另外一种说法叫DI（Dependency Injection），即依赖注入。它并不是一种技术实现，而是一种设计思想。在任何一个有实际开发意义的程序项目中，我们会使用很多类来描述它们特有的功能，并且通过类与类之间的相互协作来完成特定的业务逻辑。这个时候，每个类都需要负责管理与自己有交互的类的引用和依赖，代码将会变的异常难以维护和极度的高耦合。而IOC的出现正是用来解决这个问题，我们通过IOC将这些相互依赖对象的创建、协调工作交给Spring容器去处理，每个对象只需要关注其自身的业务逻辑关系就可以了。在这样的角度上来看，<strong>获得依赖的对象的方式，进行了反转，变成了由spring容器控制对象如何获取外部资源（包括其他对象和文件资料等等）</strong>。</p>
+</blockquote>
+<blockquote>
+<p>Spring所倡导的开发方式就是如此，所有的类都会在spring容器中登记，告诉spring你是个什么东西，你需要什么东西，然后spring会在系统运行到适当的时候，把你要的东西主动给你，同时也把你交给其他需要你的东西。所有的类的创建、销毁都由 spring来控制，也就是说控制对象生存周期的不再是引用它的对象，而是spring。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被spring控制，所以这叫控制反转。</p>
+</blockquote>
+<h5 id="总结：ioc-最主要的是改变了以往的编程思想，由原先通过-new-的方式获取依赖对象的方式（正转），变成了由spring容器来进行实例化（反转），应用程序由主动变成了被动接受。"><a href="#总结：ioc-最主要的是改变了以往的编程思想，由原先通过-new-的方式获取依赖对象的方式（正转），变成了由spring容器来进行实例化（反转），应用程序由主动变成了被动接受。" class="headerlink" title="总结：ioc 最主要的是改变了以往的编程思想，由原先通过 new 的方式获取依赖对象的方式（正转），变成了由spring容器来进行实例化（反转），应用程序由主动变成了被动接受。"></a>总结：ioc 最主要的是改变了以往的编程思想，由原先通过 new 的方式获取依赖对象的方式（正转），变成了由spring容器来进行实例化（反转），应用程序由主动变成了被动接受。</h5><h4 id="（2）具体使用（自动装配与注解注入）"><a href="#（2）具体使用（自动装配与注解注入）" class="headerlink" title="（2）具体使用（自动装配与注解注入）"></a>（2）具体使用（自动装配与注解注入）</h4><ul>
+<li>Spring的自动装配有三种模式：<strong>byType(根据类型)，byName(根据名称)、constructor(根据构造函数)。</strong></li>
+</ul>
+<h5 id="2-1-byType"><a href="#2-1-byType" class="headerlink" title="2.1 byType"></a>2.1 byType</h5><p>在byTpye模式中，Spring容器会基于反射查看bean定义的类，然后找到与依赖类型相同的bean注入到另外的bean中，<strong>这个过程需要借助setter注入来完成，因此必须存在set方法，否则注入失败。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//dao层</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    <span class="comment">//.......</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"UserDaoImpl doSomething ..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//service层</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//需要注入的依赖</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * set方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDao</span><span class="params">(UserDao userDao)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        userDao.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于xml的配置如下，通过使用＜bean＞中的autowire属性为”byType”，按类型自动装配 userService<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span> <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- byType 根据类型自动装配userDao--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span> <span class="attr">class</span>=<span class="string">"xxx.service.impl.UserServiceImpl"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>byType模式可能存一种注入失败的情况：由于是基于类型的注入，因此当xml文件中存在多个相同类型名称不同的实例Bean时，Spring容器依赖注入仍然会失败，因为存在多种适合的选项，Spring容器无法知道该注入那种。<br>恰好spring为我们提供了解决方案（指定注入需要的Bean实例）：通过设置＜bean＞标签的autowire-candidate为false，来过滤那些不需要注入的实例Bean<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span> <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- autowire-candidate="false" 过滤该类型 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao2"</span> <span class="attr">autowire-candidate</span>=<span class="string">"false"</span> <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="2-2-byName-实际项目中用得比较多"><a href="#2-2-byName-实际项目中用得比较多" class="headerlink" title="2.2 byName(实际项目中用得比较多)"></a>2.2 byName(实际项目中用得比较多)</h5><p>byName模式的自动装配：Spring只会尝试将属性名与bean名称进行匹配，如果找到则注入依赖bean。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span>  <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao2"</span> <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- byName 根据名称自动装配，找到UserServiceImpl名为 userDao属性并注入--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span> <span class="attr">class</span>=<span class="string">"xxx.service.impl.UserServiceImpl"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="基于注解的自动装配-Autowired-amp-Resource-amp-Value"><a href="#基于注解的自动装配-Autowired-amp-Resource-amp-Value" class="headerlink" title="基于注解的自动装配(@Autowired&amp;@Resource&amp;@Value)"></a>基于注解的自动装配(@Autowired&amp;@Resource&amp;@Value)</h5><h6 id="1-Autowired"><a href="#1-Autowired" class="headerlink" title="1) @Autowired"></a>1) @Autowired</h6><ul>
+<li>上述的用法可以用在bean数量很少的情况下，如果数量过多，都需要手动配置xml的话，显然不太优雅，也不利于维护</li>
+<li>好在Spring 2.5 中引入了 @Autowired 注释，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。 通过 @Autowired的使用标注到成员变量时不需要有set方法，@Autowired 默认按类型匹配的</li>
+</ul>
+<p>在xml配置文件中加入以下配置信息：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:annotation-config</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//标注成员变量</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        userDao.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在@Autowired中还传递了一个required=false的属性，false指明当userDao实例存在就注入不存在就忽略；如果为true，就必须注入，若userDao实例不存在，就抛出异常。<br>由于@Autowired默认情况下是按类型匹配的(byType)，如果想要按名称(byName)匹配的话，可以使用@Qualifier注解与@Autowired结合：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//标注成员变量</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier</span>(<span class="string">"userDao1"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="2-Resource"><a href="#2-Resource" class="headerlink" title="2) @Resource"></a>2) @Resource</h6><p>@Autowried具备相同功效，但是默认按 byName模式 自动注入,依赖包是 javax.annotation.Resource 可以标注在成员变量和set方法上，但无法标注构造函数。<br>@Resource有两个中重要的属性：name和type。Spring容器对于@Resource注解的name属性解析为bean的名字，type属性则解析为bean的类型。<br>若设置name属性，则按byName模式的自动注入，若设置type属性则按 byType模式自动注入。如果都不指定，Spring容器将通过反射技术默认按byName模式注入。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@Autowired标注成员变量</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier</span>(<span class="string">"userDao"</span>)</span><br><span class="line"><span class="keyword">private</span> UserDao userDao;  </span><br><span class="line"><span class="comment">//上述代码等价于@Resource</span></span><br><span class="line"><span class="meta">@Resource</span>(name=<span class="string">"userDao"</span>)</span><br><span class="line"><span class="keyword">private</span> UserDao  userDao;<span class="comment">//用于成员变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以用于set方法标注</span></span><br><span class="line"><span class="meta">@Resource</span>(name=<span class="string">"userDao"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDao</span><span class="params">(UserDao userDao)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.userDao= userDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="3-Value"><a href="#3-Value" class="headerlink" title="3) @Value"></a>3) @Value</h6><p>以上两种自动装配的依赖注入并不适合简单值类型，如int、boolean、long、String以及Enum等，对于这些类型，Spring容器提供了@Value注入的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//标注成员变量</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier</span>(<span class="string">"userDao"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">    <span class="comment">//占位符方式</span></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jdbc.address&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">//SpEL表达方式，其中代表xml配置文件中的id值configProperties</span></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"#&#123;configProperties['jdbc.username']&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（3）IOC管理-bean"><a href="#（3）IOC管理-bean" class="headerlink" title="（3）IOC管理 bean"></a>（3）IOC管理 bean</h4><h5 id="3-1-Bean的命名"><a href="#3-1-Bean的命名" class="headerlink" title="3.1 Bean的命名"></a>3.1 Bean的命名</h5><p>每一个交给Spring IOC容器创建的对象必须被分配至少一个名称，如果开发者没有提供，Spring容器将会为其分配一个内部名称，通过Bean的名称，我们可以在其他类中查找该类并使用它，如前面的案例，也是通过Bean名称获取到实际对象并执行对应的操作。在基于xml的配置信息中，可以使用id属性来为一个Bean分配名称，在同一个xml配置文件中，<font color="#dd0000">id必须是唯一的，但不同的xml可以相同</font>，当然还可以使用name来为Bean分配名称，name属性可以分配多个名称，此时可使用空格、逗号、分号来分离给定Bean分配多个名称，而id属性则无法这样使用。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- name属性配置多个名称 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"userDao,userDao1"</span> <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- id属性配置唯一名称而且不能与name相同--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao2"</span> <span class="attr">class</span>=<span class="string">"xxx.dao.impl.UserDaoImpl"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上述的Bean对象声明使用都在xml内声明手动声明的方式，一旦Bean对象多起来，管理Bean就会变得复杂。<br>因此Spring提供了基于Java注解的配置方式，分别使用org.springframework.stereotype.Service（@Service）和org.springframework.stereotype.Repository（@Repository）声明XxxServiceImpl和XxxDaoImpl类，使用@Autowired注解注入xxxDao（需要在xml声明注解驱动），或者使用（@Component）。</p>
+<blockquote>
+<p>Spring的框架中提供了与@Component注解等效的三个注解，@Repository 用于对DAO实现类进行标注，@Service 用于对Service实现类进行标注，@Controller 用于对Controller实现类进行标注（web层控制器）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@Component 相同效果</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//@Component 相同效果</span></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line"><span class="comment">//......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了注解声明，我们就不需要在xml中声明Bean了，但需要告诉Spring注解的Bean在那些包下，因此需要添加包扫描机制，此时需要启用Spring的context命名空间：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"xxx.project"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>另外 @Component、@Service和@Repository可以输入一个String值的名称，如果没有提供名称，那么默认情况下就是一个简单的类名(第一个字符小写)变成Bean名称。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@Component("userService") 相同效果</span></span><br><span class="line"><span class="meta">@Service</span>(<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//@Component("UserDao") 相同效果</span></span><br><span class="line"><span class="meta">@Repository</span>(<span class="string">"UserDao"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line"><span class="comment">//......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="（4）项目实践"><a href="#（4）项目实践" class="headerlink" title="（4）项目实践"></a>（4）项目实践</h4><h5 id="实际项目中，默认会按照byName方式进行依赖注入"><a href="#实际项目中，默认会按照byName方式进行依赖注入" class="headerlink" title="实际项目中，默认会按照byName方式进行依赖注入"></a>实际项目中，默认会按照byName方式进行依赖注入</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">default-autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        注意上面的default-autowire="byName"，如果没有这个声明不会被注入</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring-配置<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        自动扫描组件，这里要把web下面的</span></span><br><span class="line"><span class="comment">        controller去除，他们是在servlet-servlet.xml中配置的，如果不去除会影响事务管理的。</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"xxx"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"xxx.SpringContextHolder"</span> <span class="attr">lazy-init</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qianh.github.io/2018/05/07/spring-ioc/" data-id="cjx5tvfwj00051x34sjvfjr83"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-ioc/">Spring ioc</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2018/05/08/spring-aop/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer posts</strong>
+        <div class="article-nav-title">
+          
+            spring-aop
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/05/07/spring/" class="article-nav-link">
+        <strong class="article-nav-caption">Olde posts</strong>
+        <div class="article-nav-title">spring</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 John</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="John"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

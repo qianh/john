@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人博客，活到老学到老">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    java源代码赏析 —— Object类 |
+    
+    John</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-java-Object" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java源代码赏析 —— Object类
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2018/05/02/java-Object/" class="article-date">
+  <time datetime="2018-05-02T05:10:56.000Z" itemprop="datePublished">2018-05-02</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h3 id="Object类-——-一切类的父类"><a href="#Object类-——-一切类的父类" class="headerlink" title="Object类 —— 一切类的父类"></a>Object类 —— 一切类的父类</h3><h4 id="1-Object类的声明"><a href="#1-Object类的声明" class="headerlink" title="(1) Object类的声明"></a>(1) Object类的声明</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang; <span class="comment">//Object 类定义在java.lang 包下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="2-registerNatives-方法"><a href="#2-registerNatives-方法" class="headerlink" title="(2) registerNatives 方法"></a>(2) registerNatives 方法</h4><h5 id="通常情况下，为了使JVM发现您的本机功能，他们被一定的方式命名。例如，对于java-lang-Object-registerNatives，对应的C函数命名为Java-java-lang-Object-registerNatives。通过使用registerNatives（或者更确切地说，JNI函数RegisterNatives），您可以命名任何你想要你的C函数。"><a href="#通常情况下，为了使JVM发现您的本机功能，他们被一定的方式命名。例如，对于java-lang-Object-registerNatives，对应的C函数命名为Java-java-lang-Object-registerNatives。通过使用registerNatives（或者更确切地说，JNI函数RegisterNatives），您可以命名任何你想要你的C函数。" class="headerlink" title="通常情况下，为了使JVM发现您的本机功能，他们被一定的方式命名。例如，对于java.lang.Object.registerNatives，对应的C函数命名为Java_java_lang_Object_registerNatives。通过使用registerNatives（或者更确切地说，JNI函数RegisterNatives），您可以命名任何你想要你的C函数。"></a>通常情况下，为了使JVM发现您的本机功能，他们被一定的方式命名。例如，对于java.lang.Object.registerNatives，对应的C函数命名为Java_java_lang_Object_registerNatives。通过使用registerNatives（或者更确切地说，JNI函数RegisterNatives），您可以命名任何你想要你的C函数。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    registerNatives();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-hashCode-方法"><a href="#3-hashCode-方法" class="headerlink" title="(3) hashCode 方法"></a>(3) hashCode 方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="4-重要-equals-方法-——-比较对象的引用"><a href="#4-重要-equals-方法-——-比较对象的引用" class="headerlink" title="(4)  (重要)  equals() 方法 —— 比较对象的引用"></a>(4) <font color="#dd0000"> (重要) </font> equals() 方法 —— 比较对象的引用</h4><h5 id="Object类的equals-方法比较的是对象的引用而不是内容，这与实际生活的情况不符，实际生活中人们要求比较的是内容-比较引用没有意义，所以其他类继承Object类之后-往往需要重写equals-方法"><a href="#Object类的equals-方法比较的是对象的引用而不是内容，这与实际生活的情况不符，实际生活中人们要求比较的是内容-比较引用没有意义，所以其他类继承Object类之后-往往需要重写equals-方法" class="headerlink" title="Object类的equals()方法比较的是对象的引用而不是内容，这与实际生活的情况不符，实际生活中人们要求比较的是内容,比较引用没有意义，所以其他类继承Object类之后,往往需要重写equals()方法"></a><u>Object类的equals()方法比较的是对象的引用而不是内容</u>，这与实际生活的情况不符，实际生活中人们要求比较的是内容,比较引用没有意义，所以<u>其他类继承Object类之后,往往需要重写equals()方法</u></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="keyword">this</span> == obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-重要-toString-方法-——-打印对象的信息"><a href="#5-重要-toString-方法-——-打印对象的信息" class="headerlink" title="(5)  (重要)  toString() 方法 —— 打印对象的信息"></a>(5) <font color="#dd0000"> (重要) </font> toString() 方法 —— 打印对象的信息</h4><h5 id="打印一个对象就是调用toString-方法，该方法打印这个对象的信息，其他类在继承Object类后，一般要重写此方法，设置打印关于对象的信息的操作。"><a href="#打印一个对象就是调用toString-方法，该方法打印这个对象的信息，其他类在继承Object类后，一般要重写此方法，设置打印关于对象的信息的操作。" class="headerlink" title="打印一个对象就是调用toString()方法，该方法打印这个对象的信息，其他类在继承Object类后，一般要重写此方法，设置打印关于对象的信息的操作。"></a><u>打印一个对象就是调用toString()方法</u>，该方法打印这个对象的信息，<u>其他类在继承Object类后，一般要重写此方法</u>，设置打印关于对象的信息的操作。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> getClass().getName()+<span class="string">"@"</span>+Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-线程的等待"><a href="#6-线程的等待" class="headerlink" title="(6) 线程的等待"></a>(6) 线程的等待</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  wait(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="还可以指定等待的最长毫秒和纳秒"><a href="#还可以指定等待的最长毫秒和纳秒" class="headerlink" title="还可以指定等待的最长毫秒和纳秒"></a>还可以指定等待的最长毫秒和纳秒</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(timeout &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"timeout value is negative"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(nanos &lt; <span class="number">0</span> || nanos &gt; <span class="number">999999</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"nanosecond timeout value out of range"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(nanos &gt;= <span class="number">500000</span> || (nanos != <span class="number">0</span> &amp;&amp; timeout == <span class="number">0</span>)) &#123;</span><br><span class="line">    timeout++;</span><br><span class="line">  &#125;</span><br><span class="line">  wait(timeout);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-唤醒等待的线程"><a href="#7-唤醒等待的线程" class="headerlink" title="(7) 唤醒等待的线程"></a>(7) 唤醒等待的线程</h4><h5 id="7-1-唤醒一个线程"><a href="#7-1-唤醒一个线程" class="headerlink" title="7.1 唤醒一个线程"></a>7.1 唤醒一个线程</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<h5 id="7-2-唤醒全部线程"><a href="#7-2-唤醒全部线程" class="headerlink" title="7.2 唤醒全部线程"></a>7.2 唤醒全部线程</h5><h6 id="唤醒全部线程，哪个线程的优先级高，他就有可能先执行"><a href="#唤醒全部线程，哪个线程的优先级高，他就有可能先执行" class="headerlink" title="唤醒全部线程，哪个线程的优先级高，他就有可能先执行"></a>唤醒全部线程，哪个线程的优先级高，他就有可能先执行</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="8-finalize-方法-——-对象的回收"><a href="#8-finalize-方法-——-对象的回收" class="headerlink" title="(8) finalize() 方法 —— 对象的回收"></a>(8) finalize() 方法 —— 对象的回收</h4><h5 id="当确定一个对象不会被其他方法再使用时，该对象就没有存在的意义了，就只能等待JVM的垃圾回收线程来回收了。垃圾回收是以占用一定内存为代价的。System-gc-就是启动垃圾回收线程的语句。当用户认为需要回收时，可以使用Runtime-getRuntime-gc-或者System-gc-来回收内存。（System-gc-调用的就是Runtime类的-gc-方法）"><a href="#当确定一个对象不会被其他方法再使用时，该对象就没有存在的意义了，就只能等待JVM的垃圾回收线程来回收了。垃圾回收是以占用一定内存为代价的。System-gc-就是启动垃圾回收线程的语句。当用户认为需要回收时，可以使用Runtime-getRuntime-gc-或者System-gc-来回收内存。（System-gc-调用的就是Runtime类的-gc-方法）" class="headerlink" title="当确定一个对象不会被其他方法再使用时，该对象就没有存在的意义了，就只能等待JVM的垃圾回收线程来回收了。垃圾回收是以占用一定内存为代价的。System.gc();就是启动垃圾回收线程的语句。当用户认为需要回收时，可以使用Runtime.getRuntime().gc();或者System.gc();来回收内存。（System.gc();调用的就是Runtime类的 gc()方法）"></a>当确定一个对象不会被其他方法再使用时，该对象就没有存在的意义了，就只能等待JVM的垃圾回收线程来回收了。垃圾回收是以占用一定内存为代价的。System.gc();就是启动垃圾回收线程的语句。当用户认为需要回收时，可以使用Runtime.getRuntime().gc();或者System.gc();来回收内存。（System.gc();调用的就是Runtime类的 gc()方法）</h5><h5 id="当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize-方法。"><a href="#当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize-方法。" class="headerlink" title="当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize()方法。"></a>当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize()方法。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注意到抛出的是Throwable，说明除了常规的异常Exception外，还有可能是JVM错误。说明调用该方法不一定只会在程序中产生异常，还有可能产生JVM错误。"><a href="#注意到抛出的是Throwable，说明除了常规的异常Exception外，还有可能是JVM错误。说明调用该方法不一定只会在程序中产生异常，还有可能产生JVM错误。" class="headerlink" title="注意到抛出的是Throwable，说明除了常规的异常Exception外，还有可能是JVM错误。说明调用该方法不一定只会在程序中产生异常，还有可能产生JVM错误。"></a>注意到抛出的是Throwable，说明除了常规的异常Exception外，还有可能是JVM错误。说明调用该方法不一定只会在程序中产生异常，还有可能产生JVM错误。</h5><h4 id="（9）clone-方法-——-用于对象克隆"><a href="#（9）clone-方法-——-用于对象克隆" class="headerlink" title="（9）clone()方法 —— 用于对象克隆"></a>（9）clone()方法 —— 用于对象克隆</h4><h5 id="Object类的直接或间接子类通过在重写该方法并直接调用本类的该方法完成对象克隆。"><a href="#Object类的直接或间接子类通过在重写该方法并直接调用本类的该方法完成对象克隆。" class="headerlink" title="Object类的直接或间接子类通过在重写该方法并直接调用本类的该方法完成对象克隆。"></a>Object类的直接或间接子类通过在重写该方法并直接调用本类的该方法完成对象克隆。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="native-关键字表示调用本机操作系统的函数。"><a href="#native-关键字表示调用本机操作系统的函数。" class="headerlink" title="native 关键字表示调用本机操作系统的函数。"></a>native 关键字表示调用本机操作系统的函数。</h5>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qianh.github.io/2018/05/02/java-Object/" data-id="cjx5tvfwd00001x34852s6j2k"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-源码/">java 源码</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2018/05/03/java-String/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer posts</strong>
+        <div class="article-nav-title">
+          
+            java源代码赏析 —— String类
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 John</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="John"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
