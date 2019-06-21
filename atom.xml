@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>John</title>
   
-  <subtitle>个人博客</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <subtitle>个人博客，活到老学到老</subtitle>
+  <link href="/child/atom.xml" rel="self"/>
   
-  <link href="https://qianh.github.io/"/>
+  <link href="https://blog.john-qh.com/"/>
   <updated>2019-06-21T06:05:19.722Z</updated>
-  <id>https://qianh.github.io/</id>
+  <id>https://blog.john-qh.com/</id>
   
   <author>
     <name>John</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>java源代码赏析 —— 迭代器（Iterator）</title>
-    <link href="https://qianh.github.io/2018/05/14/java-iterator/"/>
-    <id>https://qianh.github.io/2018/05/14/java-iterator/</id>
+    <link href="https://blog.john-qh.com/2018/05/14/java-iterator/"/>
+    <id>https://blog.john-qh.com/2018/05/14/java-iterator/</id>
     <published>2018-05-14T13:25:54.000Z</published>
     <updated>2019-06-21T06:05:19.722Z</updated>
     
@@ -34,17 +34,17 @@
     
     </summary>
     
-      <category term="java" scheme="https://qianh.github.io/categories/java/"/>
+      <category term="java" scheme="https://blog.john-qh.com/categories/java/"/>
     
     
-      <category term="java 源码" scheme="https://qianh.github.io/tags/java-%E6%BA%90%E7%A0%81/"/>
+      <category term="java 源码" scheme="https://blog.john-qh.com/tags/java-%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
   <entry>
     <title>spring-aop</title>
-    <link href="https://qianh.github.io/2018/05/08/spring-aop/"/>
-    <id>https://qianh.github.io/2018/05/08/spring-aop/</id>
+    <link href="https://blog.john-qh.com/2018/05/08/spring-aop/"/>
+    <id>https://blog.john-qh.com/2018/05/08/spring-aop/</id>
     <published>2018-05-08T06:16:51.000Z</published>
     <updated>2019-06-21T06:05:19.725Z</updated>
     
@@ -60,17 +60,17 @@
     
     </summary>
     
-      <category term="Spring" scheme="https://qianh.github.io/categories/Spring/"/>
+      <category term="Spring" scheme="https://blog.john-qh.com/categories/Spring/"/>
     
     
-      <category term="Spring aop" scheme="https://qianh.github.io/tags/Spring-aop/"/>
+      <category term="Spring aop" scheme="https://blog.john-qh.com/tags/Spring-aop/"/>
     
   </entry>
   
   <entry>
     <title>spring-ioc</title>
-    <link href="https://qianh.github.io/2018/05/07/spring-ioc/"/>
-    <id>https://qianh.github.io/2018/05/07/spring-ioc/</id>
+    <link href="https://blog.john-qh.com/2018/05/07/spring-ioc/"/>
+    <id>https://blog.john-qh.com/2018/05/07/spring-ioc/</id>
     <published>2018-05-07T06:16:26.000Z</published>
     <updated>2019-06-21T06:05:19.726Z</updated>
     
@@ -85,17 +85,17 @@
     
     </summary>
     
-      <category term="Spring" scheme="https://qianh.github.io/categories/Spring/"/>
+      <category term="Spring" scheme="https://blog.john-qh.com/categories/Spring/"/>
     
     
-      <category term="Spring ioc" scheme="https://qianh.github.io/tags/Spring-ioc/"/>
+      <category term="Spring ioc" scheme="https://blog.john-qh.com/tags/Spring-ioc/"/>
     
   </entry>
   
   <entry>
     <title>spring</title>
-    <link href="https://qianh.github.io/2018/05/07/spring/"/>
-    <id>https://qianh.github.io/2018/05/07/spring/</id>
+    <link href="https://blog.john-qh.com/2018/05/07/spring/"/>
+    <id>https://blog.john-qh.com/2018/05/07/spring/</id>
     <published>2018-05-07T02:39:16.000Z</published>
     <updated>2019-06-21T06:05:19.726Z</updated>
     
@@ -111,17 +111,17 @@
     
     </summary>
     
-      <category term="Spring" scheme="https://qianh.github.io/categories/Spring/"/>
+      <category term="Spring" scheme="https://blog.john-qh.com/categories/Spring/"/>
     
     
-      <category term="Spring" scheme="https://qianh.github.io/tags/Spring/"/>
+      <category term="Spring" scheme="https://blog.john-qh.com/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>java 知识点</title>
-    <link href="https://qianh.github.io/2018/05/04/java-knowledge/"/>
-    <id>https://qianh.github.io/2018/05/04/java-knowledge/</id>
+    <link href="https://blog.john-qh.com/2018/05/04/java-knowledge/"/>
+    <id>https://blog.john-qh.com/2018/05/04/java-knowledge/</id>
     <published>2018-05-04T02:37:54.000Z</published>
     <updated>2019-06-21T06:05:19.725Z</updated>
     
@@ -136,17 +136,17 @@
     
     </summary>
     
-      <category term="java" scheme="https://qianh.github.io/categories/java/"/>
+      <category term="java" scheme="https://blog.john-qh.com/categories/java/"/>
     
     
-      <category term="java" scheme="https://qianh.github.io/tags/java/"/>
+      <category term="java" scheme="https://blog.john-qh.com/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>java源代码赏析 —— String类</title>
-    <link href="https://qianh.github.io/2018/05/03/java-String/"/>
-    <id>https://qianh.github.io/2018/05/03/java-String/</id>
+    <link href="https://blog.john-qh.com/2018/05/03/java-String/"/>
+    <id>https://blog.john-qh.com/2018/05/03/java-String/</id>
     <published>2018-05-03T05:17:21.000Z</published>
     <updated>2019-06-21T06:05:19.722Z</updated>
     
@@ -161,17 +161,17 @@
     
     </summary>
     
-      <category term="java" scheme="https://qianh.github.io/categories/java/"/>
+      <category term="java" scheme="https://blog.john-qh.com/categories/java/"/>
     
     
-      <category term="java 源码" scheme="https://qianh.github.io/tags/java-%E6%BA%90%E7%A0%81/"/>
+      <category term="java 源码" scheme="https://blog.john-qh.com/tags/java-%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
   <entry>
     <title>java源代码赏析 —— Object类</title>
-    <link href="https://qianh.github.io/2018/05/02/java-Object/"/>
-    <id>https://qianh.github.io/2018/05/02/java-Object/</id>
+    <link href="https://blog.john-qh.com/2018/05/02/java-Object/"/>
+    <id>https://blog.john-qh.com/2018/05/02/java-Object/</id>
     <published>2018-05-02T05:10:56.000Z</published>
     <updated>2019-06-21T06:34:06.411Z</updated>
     
@@ -186,10 +186,10 @@
     
     </summary>
     
-      <category term="java" scheme="https://qianh.github.io/categories/java/"/>
+      <category term="java" scheme="https://blog.john-qh.com/categories/java/"/>
     
     
-      <category term="java 源码" scheme="https://qianh.github.io/tags/java-%E6%BA%90%E7%A0%81/"/>
+      <category term="java 源码" scheme="https://blog.john-qh.com/tags/java-%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
